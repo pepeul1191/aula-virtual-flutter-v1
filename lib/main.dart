@@ -13,25 +13,63 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        theme: _lightTheme(), // Tema claro
+        darkTheme: _darkTheme(), // Tema oscuro
+        themeMode:
+            ThemeMode.system, // Usa el tema según la configuración del sistema
+        primarySwatch: Colors.blue, // Color principal de la app
+        primaryColor: Colors.blueAccent, // Color del app bar, botones, etc.
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    );
+  }
+
+  ThemeData _lightTheme() {
+    return ThemeData(
+      brightness: Brightness.light,
+      primarySwatch: Colors.blue,
+      primaryColor: Colors.blueAccent,
+      backgroundColor: Colors.white,
+      textTheme: TextTheme(
+        headline1: TextStyle(color: Colors.black87),
+        bodyText1: TextStyle(color: Colors.black),
+      ),
+      appBarTheme: AppBarTheme(
+        color: Colors.blue,
+        iconTheme: IconThemeData(color: Colors.white),
+        textTheme: TextTheme(
+          headline6: TextStyle(color: Colors.white, fontSize: 20),
+        ),
+      ),
+      buttonTheme: ButtonThemeData(
+        buttonColor: Colors.blueAccent,
+        textTheme: ButtonTextTheme.primary,
+      ),
+    );
+  }
+
+  ThemeData _darkTheme() {
+    return ThemeData(
+      brightness: Brightness.dark,
+      primarySwatch: Colors.blueGrey,
+      primaryColor: Colors.blueGrey[800],
+      backgroundColor: Colors.black,
+      textTheme: TextTheme(
+        headline1: TextStyle(color: Colors.white70),
+        bodyText1: TextStyle(color: Colors.white70),
+      ),
+      appBarTheme: AppBarTheme(
+        color: Colors.blueGrey[900],
+        iconTheme: IconThemeData(color: Colors.white),
+        textTheme: TextTheme(
+          headline6: TextStyle(color: Colors.white, fontSize: 20),
+        ),
+      ),
+      buttonTheme: ButtonThemeData(
+        buttonColor: Colors.blueGrey[700],
+        textTheme: ButtonTextTheme.primary,
+      ),
     );
   }
 }

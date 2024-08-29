@@ -64,6 +64,9 @@ flutter_native_splash:
   background_image: assets/img/splash_background.png 
   branding: assets/img/splash_branding.png 
   image: assets/img/splash_icon.png
+  background_image_dark: assets/img/splash_background_dark.png 
+  branding_dark: assets/img/splash_branding_dark.png 
+  image_dark: assets/img/splash_icon_dark.png
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
