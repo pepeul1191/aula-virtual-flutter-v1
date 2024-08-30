@@ -63,9 +63,25 @@ class CourseCard extends StatelessWidget {
                     Row(
                       children: [
                         if (status != null) ...[
+                          Text('Estado ',
+                              style: Theme.of(context).textTheme.labelLarge),
                           Text(
-                            status!.toUpperCase(),
-                            style: Theme.of(context).textTheme.labelLarge,
+                            '${status!.toUpperCase()}',
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelLarge
+                                ?.copyWith(
+                                    color: status == 'activo'
+                                        ? Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.greenAccent
+                                            : Colors.green
+                                        : status == 'bloqueado'
+                                            ? Colors.redAccent
+                                            : Colors.blueAccent,
+                                    fontWeight: FontWeight
+                                        .bold // Color personalizado solo para este Text
+                                    ),
                           ),
                           SizedBox(
                             width: 20,
