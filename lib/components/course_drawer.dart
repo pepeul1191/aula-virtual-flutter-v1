@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CourseDrawer extends StatelessWidget {
+  final int? courseId;
+
+  const CourseDrawer({Key? key, this.courseId}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -23,7 +27,7 @@ class CourseDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.home),
-            title: Text('Home'),
+            title: Text('Course ID: ${courseId ?? "None"}'),
             onTap: () {
               // Cierra el Drawer y navega a la pantalla de inicio
               Navigator.pop(context);
