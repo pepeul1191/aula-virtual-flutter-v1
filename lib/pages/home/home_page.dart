@@ -27,6 +27,115 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void _showBottomSheet(BuildContext context) {
+    String? _selectedValue;
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Text(
+                'Opciones de Búsqueda',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: 16),
+              TextField(
+                decoration: InputDecoration(
+                  labelText: 'Enter text',
+                  suffixIcon: Icon(Icons.search), // Icono a la derecha
+                  border: OutlineInputBorder(), // Borde del TextField
+                  contentPadding: EdgeInsets.symmetric(
+                      horizontal: 16.0), // Espaciado interno
+                ),
+              ),
+              SizedBox(height: 16),
+              InputDecorator(
+                decoration: InputDecoration(
+                  labelText: '',
+
+                  border: OutlineInputBorder(), // Borde del TextField
+                  contentPadding: EdgeInsets.symmetric(
+                      horizontal: 16.0), // Espaciado interno
+                ),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton<String>(
+                    value: _selectedValue,
+                    hint: Text('Choose'),
+                    isExpanded: true, // Ocupa todo el ancho disponible
+                    items: [
+                      DropdownMenuItem<String>(
+                        value: 'Option 1',
+                        child: Text('Option 1'),
+                      ),
+                      DropdownMenuItem<String>(
+                        value: 'Option 2',
+                        child: Text('Option 2'),
+                      ),
+                      DropdownMenuItem<String>(
+                        value: 'Option 3',
+                        child: Text('Option 3'),
+                      ),
+                    ],
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        _selectedValue = newValue;
+                      });
+                    },
+                  ),
+                ),
+              ),
+              SizedBox(height: 16),
+              Row(
+                children: [
+                  Text('Especialidades'),
+                ],
+              ),
+              SizedBox(height: 16),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        // Acción para el botón Limpiar
+                        print('Limpiar button pressed');
+                      },
+                      child: Text('Limpiar'),
+                    ),
+                  ),
+                  SizedBox(width: 8), // Espaciado entre botones
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        // Acción para el botón Buscar
+                        print('Buscar button pressed');
+                      },
+                      child: Text('Buscar'),
+                    ),
+                  ),
+                  SizedBox(width: 8), // Espaciado entre botones
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        // Acción para el botón Salir
+                        print('Salir button pressed');
+                      },
+                      child: Text('Salir'),
+                    ),
+                  ),
+                ],
+              ),
+              // Agrega más ListTile o widgets según sea necesario
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -77,6 +186,31 @@ class _HomePageState extends State<HomePage> {
                   padding: EdgeInsets.all(2.0),
                   child: Column(
                     children: [
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Padding(
+                          padding: EdgeInsets.only(left: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment
+                                .spaceBetween, // Distribuye el espacio entre los widgets
+                            children: [
+                              Text(
+                                'Mis Cursos',
+                                style: TextStyle(fontSize: 22),
+                              ),
+                              IconButton(
+                                icon: Icon(Icons
+                                    .filter_list), // Cambia el ícono según tus necesidades
+                                onPressed: () {
+                                  // Acción a realizar cuando se toca el ícono de filtro
+                                  print('Filter icon pressed');
+                                  _showBottomSheet(context);
+                                  // Aquí puedes abrir un diálogo, cambiar el estado, o cualquier otra acción
+                                },
+                              ),
+                            ],
+                          )),
                       CourseCard(
                         id: 1,
                         title: 'Programación Movil - 872',
