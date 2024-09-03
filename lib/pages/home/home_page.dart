@@ -1,3 +1,4 @@
+import 'package:chips_choice/chips_choice.dart';
 import 'package:flutter/material.dart';
 import '../../components/app_menu_button.dart';
 import '../../components/course_card.dart';
@@ -26,6 +27,21 @@ class _HomePageState extends State<HomePage> {
       _selectedIndex = index;
     });
   }
+
+  List<String> tags = [];
+  List<String> options = [
+    'News',
+    'Entertainment',
+    'Politics',
+    'Automotive',
+    'Sports',
+    'Education',
+    'Fashion',
+    'Travel',
+    'Food',
+    'Tech',
+    'Science',
+  ];
 
   void _showBottomSheet(BuildContext context) {
     String? _selectedValue;
@@ -92,6 +108,27 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Text('Especialidades'),
                 ],
+              ),
+              SizedBox(height: 8),
+              Wrap(
+                spacing: 8.0, // Espacio horizontal entre chips
+                runSpacing: 4.0, // Espacio vertical entre líneas de chips
+                children: options.map((option) {
+                  return ChoiceChip(
+                    label: Text(option),
+                    selected: tags.contains(option),
+                    padding: EdgeInsets.zero,
+                    onSelected: (selected) {
+                      setState(() {
+                        if (selected) {
+                          tags.add(option);
+                        } else {
+                          tags.remove(option);
+                        }
+                      });
+                    },
+                  );
+                }).toList(),
               ),
               SizedBox(height: 16),
               Row(
