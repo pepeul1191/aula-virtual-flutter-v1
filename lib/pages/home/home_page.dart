@@ -62,6 +62,7 @@ class _HomePageState extends State<HomePage> {
               ),
               SizedBox(height: 16),
               TextField(
+                controller: control.txtBuscar,
                 decoration: InputDecoration(
                   labelText: 'Enter text',
                   suffixIcon: Icon(Icons.search), // Icono a la derecha
@@ -74,7 +75,6 @@ class _HomePageState extends State<HomePage> {
               InputDecorator(
                 decoration: InputDecoration(
                   labelText: '',
-
                   border: OutlineInputBorder(), // Borde del TextField
                   contentPadding: EdgeInsets.symmetric(
                       horizontal: 16.0), // Espaciado interno
@@ -142,6 +142,7 @@ class _HomePageState extends State<HomePage> {
                       onPressed: () {
                         // Acción para el botón Limpiar
                         print('Limpiar button pressed');
+                        control.limpiar();
                       },
                       child: Text('Limpiar'),
                     ),
@@ -152,6 +153,7 @@ class _HomePageState extends State<HomePage> {
                       onPressed: () {
                         // Acción para el botón Buscar
                         print('Buscar button pressed');
+                        control.buscar();
                       },
                       child: Text('Buscar'),
                     ),
@@ -252,43 +254,30 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ],
                           )),
-                      /*CourseCard(
-                        id: 1,
-                        title: 'Programación Movil - 872',
-                        section: '60012',
-                        description:
-                            'This is the description for the first card.',
-                        status: 'activo',
-                        imageUrl: 'aula/course01.png',
-                        teacher: 'Pepe Valdivia',
-                        onTap: () {
-                          // Acción que se ejecuta cuando se toca el card
-                          print('Course 1 tapped');
-                          _openDrawer(1);
-                        },
-                      ),*/
-
-                      ListView.builder(
-                        shrinkWrap: true,
-                        physics:
-                            NeverScrollableScrollPhysics(), // Disable internal scrolling
-                        itemCount: control.secciones.value.length,
-                        itemBuilder: (context, index) {
-                          final course = control.secciones.value[index];
-                          return CourseCard(
-                            id: course.id,
-                            title: '${course.cursoNombre} - ${course.cursoId} ',
-                            section: course.seccionCodigo.toString(),
-                            description: course.cursoDescripcion,
-                            status: course.generateStatus(),
-                            imageUrl: course.cursoImagen,
-                            teacher: course.docenteNombre,
-                            onTap: () {
-                              _openDrawer(course.id);
-                            },
-                          );
-                        },
-                      )
+                      Obx(() {
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          physics:
+                              NeverScrollableScrollPhysics(), // Disable internal scrolling
+                          itemCount: control.secciones.value.length,
+                          itemBuilder: (context, index) {
+                            final course = control.secciones.value[index];
+                            return CourseCard(
+                              id: course.id,
+                              title:
+                                  '${course.cursoNombre} - ${course.cursoId} ',
+                              section: course.seccionCodigo.toString(),
+                              description: course.cursoDescripcion,
+                              status: course.generateStatus(),
+                              imageUrl: course.cursoImagen,
+                              teacher: course.docenteNombre,
+                              onTap: () {
+                                _openDrawer(course.id);
+                              },
+                            );
+                          },
+                        );
+                      })
                     ],
                   ),
                 ),
