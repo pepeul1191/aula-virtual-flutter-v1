@@ -1,9 +1,11 @@
 import 'package:chips_choice/chips_choice.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../components/app_menu_button.dart';
 import '../../components/course_card.dart';
 import '../../components/course_drawer.dart'; // Asegúrate de tener este archivo con el Drawer definido
 import '../../configs/theme.dart'; // Importa el tema si es necesario
+import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -12,6 +14,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  HomeController control = Get.put(HomeController());
   int _selectedIndex = 0; // Índice de la pestaña seleccionada
   int? _selectedCourseId;
 
@@ -175,6 +178,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    control.listSecciones();
     return SafeArea(
       child: Scaffold(
         key: _scaffoldKey, // Asigna la clave al Scaffold
@@ -248,7 +252,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ],
                           )),
-                      CourseCard(
+                      /*CourseCard(
                         id: 1,
                         title: 'Programación Movil - 872',
                         section: '60012',
@@ -262,46 +266,29 @@ class _HomePageState extends State<HomePage> {
                           print('Course 1 tapped');
                           _openDrawer(1);
                         },
-                      ),
-                      CourseCard(
-                        id: 2,
-                        title: 'Title 1',
-                        status: 'concluido',
-                        description:
-                            'This is the description for the first card.',
-                        imageUrl: 'aula/course02.png',
-                        teacher: 'Pepe Valdivia',
-                        onTap: () {
-                          // Acción que se ejecuta cuando se toca el card
-                          print('Course 2 tapped');
-                          _openDrawer(2);
+                      ),*/
+
+                      ListView.builder(
+                        shrinkWrap: true,
+                        physics:
+                            NeverScrollableScrollPhysics(), // Disable internal scrolling
+                        itemCount: control.secciones.value.length,
+                        itemBuilder: (context, index) {
+                          final course = control.secciones.value[index];
+                          return CourseCard(
+                            id: course.id,
+                            title: '${course.cursoNombre} - ${course.cursoId} ',
+                            section: course.seccionCodigo.toString(),
+                            description: course.cursoDescripcion,
+                            status: course.generateStatus(),
+                            imageUrl: course.cursoImagen,
+                            teacher: course.docenteNombre,
+                            onTap: () {
+                              _openDrawer(course.id);
+                            },
+                          );
                         },
-                      ),
-                      CourseCard(
-                        id: 3,
-                        title: 'Title 1',
-                        status: 'bloqueado',
-                        description:
-                            'This is the description for the first card.',
-                        imageUrl: 'aula/course03.png',
-                        teacher: 'Pepe Valdivia',
-                      ),
-                      CourseCard(
-                        id: 4,
-                        title: 'Title 1',
-                        description:
-                            'This is the description for the first card.',
-                        imageUrl: 'aula/course04.png',
-                        teacher: 'Pepe Valdivia',
-                      ),
-                      CourseCard(
-                        id: 5,
-                        title: 'Title 1',
-                        description:
-                            'This is the description for the first card.',
-                        imageUrl: 'aula/course05.png',
-                        teacher: 'Pepe Valdivia',
-                      ),
+                      )
                     ],
                   ),
                 ),
