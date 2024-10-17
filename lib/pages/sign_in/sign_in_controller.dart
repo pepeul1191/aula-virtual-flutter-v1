@@ -1,3 +1,4 @@
+import 'package:aula/models/usuario_logueado.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_rx/get_rx.dart';
@@ -5,6 +6,7 @@ import 'package:get/get_rx/get_rx.dart';
 import '../../models/service_http_response.dart';
 import '../../models/usuario.dart';
 import '../../services/usuario_service.dart';
+import '../home/home_page.dart';
 
 class SignInController extends GetxController {
   TextEditingController txtUsuario = TextEditingController();
@@ -23,9 +25,19 @@ class SignInController extends GetxController {
       if (response != null) {
         if (response.status == 200) {
           mensaje.value = 'Usiario validado';
+          UsuarioLogueado usuarioLogueado = response.body;
           Future.delayed(Duration(seconds: 3), () {
-            Navigator.pushReplacementNamed(context, '/home');
+            //Navigator.pushReplacementNamed(context, '/home');
             //enabled.value = true;
+            Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(
+                builder: (context) =>
+                    HomePage(), // Reemplaza con tu widget de Home
+                settings: RouteSettings(arguments: usuarioLogueado.toJson()),
+              ),
+              (Route<dynamic> route) =>
+                  false, // Elimina todas las rutas anteriores
+            );
           });
         } else {
           enabled.value = true;

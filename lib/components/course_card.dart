@@ -42,7 +42,7 @@ class CourseCard extends StatelessWidget {
                 children: <Widget>[
                   if (imageUrl != null) ...[
                     Image.network(
-                      '${imageUrl!}', // URL de la imagen
+                      '${BASE_URL}${imageUrl!}', // URL de la imagen
                       fit: BoxFit
                           .cover, // Ajusta cómo se ajusta la imagen en el contenedor
                       width: MediaQuery.of(context)

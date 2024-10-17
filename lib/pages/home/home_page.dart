@@ -5,6 +5,7 @@ import '../../components/app_menu_button.dart';
 import '../../components/course_card.dart';
 import '../../components/course_drawer.dart'; // Asegúrate de tener este archivo con el Drawer definido
 import '../../configs/theme.dart'; // Importa el tema si es necesario
+import '../../models/usuario_logueado.dart';
 import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -178,9 +179,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    control.listSecciones();
+  Widget _buildBody(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         key: _scaffoldKey, // Asigna la clave al Scaffold
@@ -263,7 +262,7 @@ class _HomePageState extends State<HomePage> {
                           itemBuilder: (context, index) {
                             final course = control.secciones.value[index];
                             return CourseCard(
-                              id: course.id,
+                              id: course.seccionId,
                               title:
                                   '${course.cursoNombre} - ${course.cursoId} ',
                               section: course.seccionCodigo.toString(),
@@ -272,7 +271,7 @@ class _HomePageState extends State<HomePage> {
                               imageUrl: course.cursoImagen,
                               teacher: course.docenteNombre,
                               onTap: () {
-                                _openDrawer(course.id);
+                                _openDrawer(course.seccionId);
                               },
                             );
                           },
@@ -287,5 +286,15 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final Map<String, dynamic> args =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    this.control.usuarioLogueado.value = UsuarioLogueado.fromMap(args);
+    print(this.control.usuarioLogueado.value);
+    control.listSecciones(this.control.usuarioLogueado.value.personaId);
+    return _buildBody(context);
   }
 }

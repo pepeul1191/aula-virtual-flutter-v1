@@ -22,6 +22,7 @@ class UsuarioService {
       serviceResponse.status = response.statusCode;
       // Verificar si la solicitud fue exitosa
       if (response.statusCode == 200) {
+        print(response.body);
         Map<String, dynamic> jsonResponse = json.decode(response.body);
         serviceResponse.body = UsuarioLogueado.fromMap(jsonResponse);
       } else {
@@ -39,26 +40,16 @@ class UsuarioService {
   Future<ServiceHttpResponse?> resetPassword(String correo) async {
     ServiceHttpResponse serviceResponse = ServiceHttpResponse();
     final url = Uri.parse('${BASE_URL}usuario/cambiar-contrasenia');
-
-    // Crear la solicitud POST
     var request = http.MultipartRequest('POST', url);
     request.fields['correo'] = correo;
-
     try {
-      // Enviar la solicitud
       var response = await request.send();
-
-      // Leer el cuerpo de la respuesta
       String responseBody = await response.stream.bytesToString();
-
-      // Verificar el código de estado de la respuesta
       serviceResponse.status = response.statusCode;
-
       if (response.statusCode == 200) {
         serviceResponse.body = responseBody;
       } else {
-        serviceResponse.body =
-            responseBody; // También asignar el cuerpo en caso de error
+        serviceResponse.body = responseBody;
       }
     } catch (e) {
       print('Error: $e');

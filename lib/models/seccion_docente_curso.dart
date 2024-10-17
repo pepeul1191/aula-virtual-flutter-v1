@@ -17,8 +17,6 @@ fromMap
 
 class SeccionDocenteCurso {
   // Atributos de la clase
-  int id;
-  int codigo;
   String diploma;
   DateTime fechaInicio;
   DateTime fechaFin;
@@ -28,13 +26,12 @@ class SeccionDocenteCurso {
   String cursoNombre;
   String cursoDescripcion;
   String cursoImagen;
+  int cursoCodigo;
   int seccionId;
   int seccionCodigo;
 
   // Constructor vacío
   SeccionDocenteCurso({
-    required this.id,
-    required this.codigo,
     required this.diploma,
     required this.fechaInicio,
     required this.fechaFin,
@@ -44,6 +41,7 @@ class SeccionDocenteCurso {
     required this.cursoNombre,
     required this.cursoDescripcion,
     required this.cursoImagen,
+    required this.cursoCodigo,
     required this.seccionId,
     required this.seccionCodigo,
   });
@@ -51,18 +49,16 @@ class SeccionDocenteCurso {
   // Método toString
   @override
   String toString() {
-    return 'SeccionDocenteCurso{id: $id, codigo: $codigo, diploma: $diploma, '
+    return 'SeccionDocenteCurso{diploma: $diploma, '
         'fechaInicio: $fechaInicio, fechaFin: $fechaFin, docenteId: $docenteId, '
         'docenteNombre: $docenteNombre, cursoId: $cursoId, '
-        'cursoNombre: $cursoNombre, cursoDescripcion: $cursoDescripcion, cursoImagen: $cursoImagen,'
-        'seccionId: $seccionId, seccionCodigo: $seccionCodigo';
+        'cursoNombre: $cursoNombre, cursoDescripcion: $cursoDescripcion, cursoCodigo: $cursoCodigo, '
+        'cursoImagen: $cursoImagen,seccionId: $seccionId, seccionCodigo: $seccionCodigo';
   }
 
   // Método toJSON
   String toJSON() {
     final map = {
-      'id': id,
-      'codigo': codigo,
       'diploma': diploma,
       'fecha_inicio': fechaInicio?.toIso8601String(),
       'fecha_fin': fechaFin?.toIso8601String(),
@@ -79,16 +75,17 @@ class SeccionDocenteCurso {
   }
 
   // Método fromMap
+
+  //{"docente_id":1,"docente_nombre":"VALDIVIA CABALLERO, JOSE JESÚS","curso_id":1,"curso_codigo":213213,"curso_nombre":"Progrmación Móvil","curso_descripcion":"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.","curso_imagen":"assest/img/curso01.png","seccion_id":1,"seccion_codigo":423,"fecha_inicio":"2024-08-01 00:00:00 -0500","fecha_fin":"2024-12-25 00:00:00 -0500","diploma":"assets/pdf/pm.pdf"}
   factory SeccionDocenteCurso.fromMap(Map<String, dynamic> map) {
     return SeccionDocenteCurso(
-        id: map['id'] as int,
-        codigo: map['codigo'] as int,
+        docenteId: map['docente_id'] as int,
+        cursoId: map['curso_id'] as int,
+        cursoCodigo: map['curso_codigo'] as int,
         diploma: map['diploma'] as String,
         fechaInicio: DateTime.parse(map['fecha_inicio'] as String),
         fechaFin: DateTime.parse(map['fecha_fin'] as String),
-        docenteId: map['docente_id'] as int,
         docenteNombre: map['docente_nombre'] as String,
-        cursoId: map['curso_id'] as int,
         cursoNombre: map['curso_nombre'] as String,
         cursoDescripcion: map['curso_descripcion'] as String,
         cursoImagen: map['curso_imagen'] as String,
