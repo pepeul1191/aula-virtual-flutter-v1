@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'configs/theme.dart';
 import 'pages/home/home_page.dart';
+import 'pages/reset/reset_page.dart';
 import 'pages/sign_in/sign_in_page.dart';
 import 'pages/sign_up/sign_up_page.dart';
 
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/sign-in': (context) => SignInPage(),
         '/sign-up': (context) => SignUpPage(),
+        '/reset-password': (context) => ResetPage(),
         '/home': (context) => HomePage(),
       },
     );

@@ -35,4 +35,38 @@ class UsuarioService {
     });
     return serviceResponse;
   }
+
+  Future<ServiceHttpResponse?> resetPassword(String correo) async {
+    ServiceHttpResponse serviceResponse = ServiceHttpResponse();
+    final url = Uri.parse('${BASE_URL}usuario/cambiar-contrasenia');
+
+    // Crear la solicitud POST
+    var request = http.MultipartRequest('POST', url);
+    request.fields['correo'] = correo;
+
+    try {
+      // Enviar la solicitud
+      var response = await request.send();
+
+      // Leer el cuerpo de la respuesta
+      String responseBody = await response.stream.bytesToString();
+
+      // Verificar el código de estado de la respuesta
+      serviceResponse.status = response.statusCode;
+
+      if (response.statusCode == 200) {
+        serviceResponse.body = responseBody;
+      } else {
+        serviceResponse.body =
+            responseBody; // También asignar el cuerpo en caso de error
+      }
+    } catch (e) {
+      print('Error: $e');
+      serviceResponse.status = 503;
+      serviceResponse.body =
+          'Ocurrió un error no controlado en comunicarse con el servidor';
+    }
+
+    return serviceResponse;
+  }
 }

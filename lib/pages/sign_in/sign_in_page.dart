@@ -47,6 +47,14 @@ class SignInPage extends StatelessWidget {
               borderRadius: BorderRadius.circular(14),
               onPressed: () {
                 control.goToSignUp(context);
+              }),
+          LargeButton(
+              title: 'Resetar Contraseña',
+              backgroundColor: control.enabled.value ? Colors.red : Colors.grey,
+              textColor: Colors.white,
+              borderRadius: BorderRadius.circular(14),
+              onPressed: () {
+                control.goToResetPassword(context);
               })
         ]);
       }),

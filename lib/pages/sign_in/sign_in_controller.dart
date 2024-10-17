@@ -21,11 +21,10 @@ class SignInController extends GetxController {
       Usuario u = Usuario(usuario: usuario, contrasenia: contrasenia);
       ServiceHttpResponse? response = await usuarioService.signIn(u);
       if (response != null) {
-        print(response);
         if (response.status == 200) {
           mensaje.value = 'Usiario validado';
           Future.delayed(Duration(seconds: 3), () {
-            Navigator.pushNamed(context, '/home');
+            Navigator.pushReplacementNamed(context, '/home');
             //enabled.value = true;
           });
         } else {
@@ -42,6 +41,12 @@ class SignInController extends GetxController {
   void goToSignUp(BuildContext context) {
     if (enabled.value) {
       Navigator.pushNamed(context, '/sign-up');
+    }
+  }
+
+  void goToResetPassword(BuildContext context) {
+    if (enabled.value) {
+      Navigator.pushNamed(context, '/reset-password');
     }
   }
 }
