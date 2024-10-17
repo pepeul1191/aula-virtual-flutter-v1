@@ -1,5 +1,6 @@
 import 'package:chips_choice/chips_choice.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../../components/app_menu_button.dart';
 import '../../components/course_card.dart';
@@ -193,8 +194,17 @@ class _HomePageState extends State<HomePage> {
             AppMenuButton(
               context: context, // Pasar el contexto
               onSelected: (value) {
-                // Manejar la selección del menú si es necesario
-                print('Menu item selected from outside: $value');
+                if (value == 'edit-profile')
+                  switch (value) {
+                    case 'edit-profile':
+                      control.goToProfile(context);
+                      break;
+                    case 'sign-out':
+                      SystemNavigator.pop();
+                      break;
+                    default:
+                      print('Invalid day.');
+                  }
               },
             ),
           ],
@@ -293,7 +303,7 @@ class _HomePageState extends State<HomePage> {
     final Map<String, dynamic> args =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     this.control.usuarioLogueado.value = UsuarioLogueado.fromMap(args);
-    print(this.control.usuarioLogueado.value);
+    // print(this.control.usuarioLogueado.value);
     control.listSecciones(this.control.usuarioLogueado.value.personaId);
     return _buildBody(context);
   }

@@ -33,12 +33,12 @@ class AppMenuButton extends StatelessWidget {
       itemBuilder: (BuildContext context) {
         return [
           PopupMenuItem<String>(
-            value: 'Item 1',
-            child: Text('Item 1'),
+            value: 'edit-profile',
+            child: Text('Editar Perfil'),
           ),
           PopupMenuItem<String>(
-            value: 'Item 2',
-            child: Text('Item 2'),
+            value: 'sign-out',
+            child: Text('Salir'),
           ),
           // Agrega más items aquí si es necesario
         ];

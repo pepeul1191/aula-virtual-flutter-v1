@@ -5,6 +5,7 @@ import '../../models/service_http_response.dart';
 import '../../models/usuario_logueado.dart';
 import '../../services/seccion_service.dart';
 import '../../models/seccion_docente_curso.dart';
+import '../profile/profile_page.dart';
 
 class HomeController extends GetxController {
   SeccionService seccionService = SeccionService();
@@ -48,6 +49,16 @@ class HomeController extends GetxController {
           textColor: Colors.white,
           fontSize: 16.0);
     }
+  }
+
+  void goToProfile(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            ProfilePage(usuarioLogueado: usuarioLogueado.value),
+      ),
+    );
   }
 
   void buscar() {

@@ -28,7 +28,7 @@ class SeccionService {
       final response = await http.get(url);
       serviceResponse.status = response.statusCode;
       if (response.statusCode == 200) {
-        print(response.body);
+        //print(response.body);
         final List<dynamic> parsedData = json.decode(response.body);
         secciones = parsedData
             .map((bodyPartJson) => SeccionDocenteCurso.fromMap(bodyPartJson))
