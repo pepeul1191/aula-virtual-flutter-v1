@@ -1,4 +1,63 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
-class SignUpController extends GetxController {}
+import '../../models/service_http_response.dart';
+import '../../services/usuario_service.dart';
+
+class SignUpController extends GetxController {
+  TextEditingController txtUsuario = TextEditingController();
+  TextEditingController txtCorreo = TextEditingController();
+  TextEditingController txtContrasenia = TextEditingController();
+  TextEditingController txtContrasenia2 = TextEditingController();
+  UsuarioService usuarioService = UsuarioService();
+  RxBool enabled = true.obs;
+  RxString mensaje = ''.obs;
+
+  void goToSignIn(BuildContext context) {
+    if (enabled.value) {
+      Navigator.pushNamed(context, '/sign-in');
+    }
+  }
+
+  void goToResetPassword(BuildContext context) {
+    if (enabled.value) {
+      Navigator.pushNamed(context, '/reset-password');
+    }
+  }
+
+  Future<void> signUp(BuildContext context) async {
+    if (enabled.value) {
+      enabled.value = false;
+      String usuario = txtUsuario.text;
+      String correo = txtCorreo.text;
+      String contrasenia = txtContrasenia.text;
+      String contrasenia2 = txtContrasenia2.text;
+
+      if (contrasenia != contrasenia2) {
+        mensaje.value = 'Contraseñas no coinciden';
+        Future.delayed(Duration(seconds: 3), () {
+          mensaje.value = '';
+          enabled.value = true;
+        });
+      } else {
+        ServiceHttpResponse? response =
+            await usuarioService.signUp(usuario, correo, contrasenia);
+        if (response != null) {
+          if (response.status == 200) {
+            mensaje.value = 'Usuario Creado';
+            Future.delayed(Duration(seconds: 3), () {
+              mensaje.value = '';
+              enabled.value = true;
+            });
+          } else {
+            enabled.value = true;
+            mensaje.value = response.body;
+          }
+        } else {
+          enabled.value = true;
+          mensaje.value = 'No hay respuesta del servidor';
+        }
+      }
+    }
+  }
+}

@@ -60,4 +60,32 @@ class UsuarioService {
 
     return serviceResponse;
   }
+
+  Future<ServiceHttpResponse?> signUp(
+      String usuario, String correo, String contrasenia) async {
+    ServiceHttpResponse serviceResponse = ServiceHttpResponse();
+    final url = Uri.parse('${BASE_URL}usuario/crear-usuario');
+    var request = http.MultipartRequest('POST', url);
+    request.fields['correo'] = correo;
+    request.fields['usuario'] = usuario;
+    request.fields['contrasenia'] = contrasenia;
+    try {
+      var response = await request.send();
+      String responseBody = await response.stream.bytesToString();
+      serviceResponse.status = response.statusCode;
+      print(responseBody);
+      if (response.statusCode == 200) {
+        serviceResponse.body = responseBody;
+      } else {
+        serviceResponse.body = responseBody;
+      }
+    } catch (e) {
+      print('Error: $e');
+      serviceResponse.status = 503;
+      serviceResponse.body =
+          'Ocurrió un error no controlado en comunicarse con el servidor';
+    }
+
+    return serviceResponse;
+  }
 }
