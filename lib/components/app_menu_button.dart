@@ -37,6 +37,10 @@ class AppMenuButton extends StatelessWidget {
             child: Text('Editar Perfil'),
           ),
           PopupMenuItem<String>(
+            value: 'view-map',
+            child: Text('Ver Mapa'),
+          ),
+          PopupMenuItem<String>(
             value: 'sign-out',
             child: Text('Salir'),
           ),

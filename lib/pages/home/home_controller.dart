@@ -6,6 +6,7 @@ import '../../models/usuario_logueado.dart';
 import '../../services/seccion_service.dart';
 import '../../models/seccion_docente_curso.dart';
 import '../profile/profile_page.dart';
+import '../location/location_page.dart';
 
 class HomeController extends GetxController {
   SeccionService seccionService = SeccionService();
@@ -57,6 +58,15 @@ class HomeController extends GetxController {
       MaterialPageRoute(
         builder: (context) =>
             ProfilePage(usuarioLogueado: usuarioLogueado.value),
+      ),
+    );
+  }
+
+  void goToMap(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => LocationPage(),
       ),
     );
   }

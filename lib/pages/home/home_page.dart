@@ -194,17 +194,19 @@ class _HomePageState extends State<HomePage> {
             AppMenuButton(
               context: context, // Pasar el contexto
               onSelected: (value) {
-                if (value == 'edit-profile')
-                  switch (value) {
-                    case 'edit-profile':
-                      control.goToProfile(context);
-                      break;
-                    case 'sign-out':
-                      SystemNavigator.pop();
-                      break;
-                    default:
-                      print('Invalid day.');
-                  }
+                switch (value) {
+                  case 'edit-profile':
+                    control.goToProfile(context);
+                    break;
+                  case 'view-map':
+                    control.goToMap(context);
+                    break;
+                  case 'sign-out':
+                    SystemNavigator.pop();
+                    break;
+                  default:
+                    print('Invalid day.');
+                }
               },
             ),
           ],
