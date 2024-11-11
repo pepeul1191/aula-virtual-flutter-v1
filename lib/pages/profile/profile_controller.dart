@@ -1,9 +1,15 @@
+import 'dart:io';
+
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../models/usuario.dart';
 import '../../models/usuario_logueado.dart';
 
 class ProfileController extends GetxController {
+  Rx<File?> pickedImageFile = File('').obs;
+
   var usuarioLogueado = UsuarioLogueado(
           usuarioId: 0,
           usuario: '',
@@ -15,6 +21,25 @@ class ProfileController extends GetxController {
           personaId: 0)
       .obs;
 
+  void takePicture() async {
+    print('+++++++++++++++++++++++');
+    final pickedImage =
+        await ImagePicker().pickImage(source: ImageSource.camera);
+    if (pickedImage != null) {
+      // Acción con la imagen capturada (p.ej. mostrarla en un widget)
+      int memberId = usuarioLogueado.value.usuarioId;
+      print(
+          'Control: Imagen seleccionada desde la cámara: ${pickedImage.path}');
+      pickedImageFile.value = File(pickedImage.path);
+      updateImage(memberId);
+      //closeBottomSheet(context);
+    }
+  }
+
+  void updateImage(int memberId) async {
+    //MemberService service = MemberService();
+    //await service.updateProfileImage(pickedImageFile.value!.path, memberId);
+  }
   /*
   var usuario = Usuario(idUsuario: 0, correo: '').obs;
 
