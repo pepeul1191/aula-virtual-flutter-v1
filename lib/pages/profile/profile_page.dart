@@ -32,20 +32,20 @@ class ProfilePage extends StatelessWidget {
                             ) // Icono de reserva si no hay imagen
                           : null,
                     )
-                  : ClipOval(
-                      child: Container(
-                        width: 100.0, // El diámetro del círculo (2 * radius)
-                        height: 100.0, // El diámetro del círculo (2 * radius)
-                        child: control.pickedImageFile.value != null
-                            ? Image.file(
-                                control.pickedImageFile.value!,
-                                fit: BoxFit
-                                    .cover, // Asegura que la imagen llene el círculo
-                              )
-                            : Icon(Icons.person,
-                                size: 50), // Icono si no hay imagen
-                      ),
-                    ),
+                  : Obx(() => ClipOval(
+                        child: Container(
+                          width: 100.0, // El diámetro del círculo (2 * radius)
+                          height: 100.0, // El diámetro del círculo (2 * radius)
+                          child: control.pickedImageFile.value != null
+                              ? Image.file(
+                                  control.pickedImageFile.value!,
+                                  fit: BoxFit
+                                      .cover, // Asegura que la imagen llene el círculo
+                                )
+                              : Icon(Icons.person,
+                                  size: 50), // Icono si no hay imagen
+                        ),
+                      )),
               Positioned(
                 bottom: 0,
                 right: 0,

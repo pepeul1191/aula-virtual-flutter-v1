@@ -88,4 +88,31 @@ class UsuarioService {
 
     return serviceResponse;
   }
+
+  Future<ServiceHttpResponse?> updateProfileImage(
+      String filePath, int usuarioId) async {
+    ServiceHttpResponse serviceResponse = ServiceHttpResponse();
+    var request =
+        http.MultipartRequest('POST', Uri.parse('${BASE_URL}usuario/imagen'));
+    request.files.add(await http.MultipartFile.fromPath('file', filePath));
+    request.fields['user_id'] = usuarioId.toString();
+    try {
+      var response = await request.send();
+      String responseBody = await response.stream.bytesToString();
+      serviceResponse.status = response.statusCode;
+      print(responseBody);
+      if (response.statusCode == 200) {
+        serviceResponse.body = responseBody;
+      } else {
+        serviceResponse.body = responseBody;
+      }
+    } catch (e) {
+      print('Error: $e');
+      serviceResponse.status = 503;
+      serviceResponse.body =
+          'Ocurrió un error no controlado en comunicarse con el servidor';
+    }
+
+    return serviceResponse;
+  }
 }
