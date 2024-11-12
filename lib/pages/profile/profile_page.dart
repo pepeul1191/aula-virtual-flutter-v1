@@ -52,8 +52,9 @@ class ProfilePage extends StatelessWidget {
                 child: GestureDetector(
                   onTap: () {
                     // Lógica para cambiar la imagen de perfil (puedes usar el image_picker aquí)
-                    print('Icono de lápiz presionado');
-                    control.takePicture();
+                    print('Icono de lápiz presionado 2');
+                    //control.takePicture();
+                    control.pickImageFromGallery();
                     // Puedes llamar a tu lógica aquí para mostrar el picker o realizar otra acción
                   },
                   child: Container(

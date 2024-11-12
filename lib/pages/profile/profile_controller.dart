@@ -43,6 +43,19 @@ class ProfileController extends GetxController {
         pickedImageFile.value!.path, usuarioId);
     print(response!.body);
   }
+
+  void pickImageFromGallery() async {
+    print('ppppppppppppp');
+    final pickedImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
+      // Acción con la imagen seleccionada (p.ej. mostrarla en un widget)
+      print(
+          'Control: Imagen seleccionada desde la galería: ${pickedImage.path}');
+      pickedImageFile.value = File(pickedImage.path);
+      updateImage(usuarioLogueado.value.usuarioId);
+    }
+  }
   /*
   var usuario = Usuario(idUsuario: 0, correo: '').obs;
 
